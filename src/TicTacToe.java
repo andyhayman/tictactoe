@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TicTacToe extends JFrame {
     private JButton[][] buttons;
@@ -37,10 +35,10 @@ public class TicTacToe extends JFrame {
         JPanel modePanel = new JPanel();
         JButton pvpButton = new JButton("Player vs Player");
         JButton pvcButton = new JButton("Player vs Computer");
-        
+
         pvpButton.addActionListener(e -> startNewGame(false));
         pvcButton.addActionListener(e -> startNewGame(true));
-        
+
         modePanel.add(pvpButton);
         modePanel.add(pvcButton);
 
@@ -57,7 +55,7 @@ public class TicTacToe extends JFrame {
         vsComputer = computerOpponent;
         currentPlayer = 'X';
         gameOver = false;
-        
+
         // Reset all buttons
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -65,7 +63,7 @@ public class TicTacToe extends JFrame {
                 buttons[i][j].setEnabled(true);
             }
         }
-        
+
         updateStatus();
     }
 
@@ -76,13 +74,13 @@ public class TicTacToe extends JFrame {
 
         // Make player move
         buttons[row][col].setText(String.valueOf(currentPlayer));
-        
+
         if (checkWin(currentPlayer)) {
             gameOver = true;
             statusLabel.setText("Player " + currentPlayer + " wins!");
             return;
         }
-        
+
         if (isBoardFull()) {
             gameOver = true;
             statusLabel.setText("It's a draw!");
@@ -102,8 +100,8 @@ public class TicTacToe extends JFrame {
     private void makeComputerMove() {
         // Simple computer AI: randomly choose an empty cell
         while (true) {
-            int row = (int)(Math.random() * 3);
-            int col = (int)(Math.random() * 3);
+            int row = (int) (Math.random() * 3);
+            int col = (int) (Math.random() * 3);
             if (buttons[row][col].getText().isEmpty()) {
                 makeMove(row, col);
                 break;
@@ -113,38 +111,38 @@ public class TicTacToe extends JFrame {
 
     private boolean checkWin(char player) {
         String symbol = String.valueOf(player);
-        
+
         // Check rows
         for (int i = 0; i < 3; i++) {
             if (buttons[i][0].getText().equals(symbol) &&
-                buttons[i][1].getText().equals(symbol) &&
-                buttons[i][2].getText().equals(symbol)) {
+                    buttons[i][1].getText().equals(symbol) &&
+                    buttons[i][2].getText().equals(symbol)) {
                 return true;
             }
         }
-        
+
         // Check columns
         for (int j = 0; j < 3; j++) {
             if (buttons[0][j].getText().equals(symbol) &&
-                buttons[1][j].getText().equals(symbol) &&
-                buttons[2][j].getText().equals(symbol)) {
+                    buttons[1][j].getText().equals(symbol) &&
+                    buttons[2][j].getText().equals(symbol)) {
                 return true;
             }
         }
-        
+
         // Check diagonals
         if (buttons[0][0].getText().equals(symbol) &&
-            buttons[1][1].getText().equals(symbol) &&
-            buttons[2][2].getText().equals(symbol)) {
+                buttons[1][1].getText().equals(symbol) &&
+                buttons[2][2].getText().equals(symbol)) {
             return true;
         }
-        
+
         if (buttons[0][2].getText().equals(symbol) &&
-            buttons[1][1].getText().equals(symbol) &&
-            buttons[2][0].getText().equals(symbol)) {
+                buttons[1][1].getText().equals(symbol) &&
+                buttons[2][0].getText().equals(symbol)) {
             return true;
         }
-        
+
         return false;
     }
 
